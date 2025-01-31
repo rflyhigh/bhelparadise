@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhel Paradise</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #fef2f2;
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f87171' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .marathi-punch {
+            font-size: 1rem;
+            color: #059669;
+            margin-top: 5px;
+        }
+
+        .location-banner {
+            background: #fef2f2;
+            border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+            padding: 8px;
+            text-align: center;
+            color: #dc2626;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .location-banner i {
+            font-size: 1rem;
+        }
+
+        .card-container {
+            position: relative;
+            width: 340px;
+            height: 600px;
+            margin: 20px auto;
+            overflow: visible;
+        }
+
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: grab;
+            overflow: hidden;
+            transform-origin: center;
+        }
+
+        .card.exit-left {
+            transform: translateX(-120%) rotate(-10deg);
+            opacity: 0;
+        }
+
+        .card.exit-right {
+            transform: translateX(120%) rotate(10deg);
+            opacity: 0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-color: #f3f4f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 8px 16px;
+            background: #dc2626;
+            color: white;
+            border-radius: 20px;
+            font-weight: 500;
+            z-index: 1;
+        }
+
+        .card-content {
+            padding: 20px;
+            height: calc(100% - 250px);
+            overflow-y: auto;
+        }
+
+        .card-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .card-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .card-content::-webkit-scrollbar-thumb {
+            background: #dc2626;
+            border-radius: 4px;
+        }
+
+        .dish-name {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #171717;
+            margin: 15px 0 10px;
+        }
+
+        .marathi-name {
+            font-size: 1.2rem;
+            color: #dc2626;
+            margin-bottom: 20px;
+        }
+
+        .ingredients {
+            color: #525252;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #dc2626;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 2px dashed #f3f4f6;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+            padding: 0 20px;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+            color: #dc2626;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .swipe-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #525252;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 20;
+        }
+
+       
+
+        @media (max-width: 400px) {
+            .card-container {
+                width: 320px;
+                height: 580px;
+            }
+            .dish-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="location-banner">
+        <i class="fas fa-map-marker-alt"></i>
+        Visit us at Oval Ground, ADYPU
+    </div>
+    <div class="header">
+        <h1>Bhel Paradise</h1>
+        <div class="marathi-punch">आमची भेळ, तुमची मजा!</div>
+    </div>
+
+        <div class="card-container" id="cardContainer"></div>
+
+        <div class="navigation">
+            <button class="nav-btn" onclick="prevCard()">
+                <i class="fas fa-arrow-left"></i> Magcha Item
+            </button>
+            <button class="nav-btn" onclick="nextCard()">
+                Pudcha Item <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="swipe-hint">
+            <i class="fas fa-hand-point-up"></i>
+            Swipe kara, Maja kara!
+        </div>
+
+    </div>
+
+    <script>
+        const menuItems = [
+            {
+                name: "Mumbai Chi Special",
+                marathiName: "मुंबईची स्पेशल भेळ",
+                type: "OG Style",
+                ingredients: "Fresh puffed rice, crispy sev, onion, tomato, 2 secret chutneys, aani thoda magic!",
+                price: "₹60",
+                image: "https://foodtrails25.com/wp-content/uploads/2021/05/Bhel-Poori.jpg"
+            },
+            {
+                name: "Cheese Blast Bhel",
+                marathiName: "चीझ ब्लास्ट भेळ",
+                type: "Fusion",
+                ingredients: "Classic bhel topped with loads of cheese, sweet corn, mayo, special masala, aani extra cheese!",
+                price: "₹90",
+                image: "https://www.shutterstock.com/image-photo/chinese-bhel-spicy-indochinese-recipe-600nw-1387600910.jpg"
+            },
+            {
+                name: "Schezwan Tadka",
+                marathiName: "शेझवान तडका भेळ",
+                type: "Chinese Fusion",
+                ingredients: "Indo-Chinese style with noodles, schezwan sauce, veggies, wontons, special masala!",
+                price: "₹100",
+                image: "https://thumbs.dreamstime.com/b/chinese-bhel-black-bowl-isolated-white-backdrop-ndo-cuisine-street-food-dish-schezwan-sauce-indo-deep-fried-hakka-187058269.jpg"
+            },
+            {
+                name: "Dry Fruit Special",
+                marathiName: "ड्राय फ्रूट स्पेशल भेळ",
+                type: "Premium",
+                ingredients: "Premium bhel with cashews, almonds, golden raisins, dates, silver varq, gulkand!",
+                price: "₹150",
+                image: "https://www.munipendawala.com/cdn/shop/files/Dry-Fruit-Dalmoth_f28f7799-e83b-4783-8520-e2456a09eedd.jpg"
+            }
+        ];
+
+        let currentIndex = 0;
+        const cardContainer = document.getElementById('cardContainer');
+        let startX, moveX;
+        let isDragging = false;
+
+        function createCard(item) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-image">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="tag">${item.type}</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="dish-name">${item.name}</h2>
+                    <div class="marathi-name">${item.marathiName}</div>
+                    <p class="ingredients">${item.ingredients}</p>
+                    <div class="price">${item.price}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        function updateCards() {
+            cardContainer.innerHTML = '';
+            const card = createCard(menuItems[currentIndex]);
+            cardContainer.appendChild(card);
+        }
+
+        function nextCard() {
+            const card = cardContainer.querySelector('.card');
+            card.classList.add('exit-left');
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % menuItems.length;
+                updateCards();
+            }, 300);
+        }
+
+        function prevCard() {
+            const card = cardContainer.querySelector('.card');
+            card.classList.add('exit-right');
+            setTimeout(() => {
+                currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                updateCards();
+            }, 300);
+        }
+
+        cardContainer.addEventListener('mousedown', startDragging);
+        cardContainer.addEventListener('touchstart', (e) => {
+            startDragging(e.touches[0]);
+        });
+
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            drag(e.touches[0]);
+        });
+
+        document.addEventListener('mouseup', endDragging);
+        document.addEventListener('touchend', endDragging);
+
+        function startDragging(e) {
+            isDragging = true;
+            startX = e.clientX;
+        }
+
+        function drag(e) {
+            if (!isDragging) return;
+            moveX = e.clientX;
+            const diff = moveX - startX;
+            const card = cardContainer.querySelector('.card');
+            const rotation = diff * 0.1;
+            const scale = Math.max(0.9, 1 - Math.abs(diff) / 1000);
+            card.style.transform = `translateX(${diff}px) rotate(${rotation}deg) scale(${scale})`;
+        }
+
+        function endDragging() {
+            if (!isDragging) return;
+            isDragging = false;
+            const card = cardContainer.querySelector('.card');
+            const diff = moveX - startX;
+            
+            if (Math.abs(diff) > 100) {
+                if (diff > 0) {
+                    prevCard();
+                } else {
+                    nextCard();
+                }
+            } else {
+                card.style.transform = '';
+            }
+        }
+
+        updateCards();
+    </script>
+</body>
+</html>
