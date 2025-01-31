@@ -91,6 +91,11 @@
             user-select: none;
         }
 
+        .card.byob {
+            background: linear-gradient(135deg, #fef2f2, #fff7ed);
+            border: 2px dashed #dc2626;
+        }
+
         .card.exit-left {
             transform: translateX(-120%) rotate(-10deg);
             opacity: 0;
@@ -268,37 +273,83 @@
 
     <script>
         const menuItems = [
+            // Classic Bhel Choices
             {
-                name: "Mumbai Chi Special",
-                marathiName: "मुंबईची स्पेशल भेळ",
-                type: "OG Style",
-                ingredients: "Fresh puffed rice, crispy sev, onion, tomato, 2 secret chutneys, aani thoda magic!",
-                price: "₹60",
-                image: "https://foodtrails25.com/wp-content/uploads/2021/05/Bhel-Poori.jpg"
+                name: "Oli Bhel",
+                marathiName: "ओळी भेळ",
+                type: "Classic",
+                ingredients: "A flavorful mix of puffed rice, chutneys, and fresh veggies.",
+                price: "₹30",
+                image: "https://madhurasrecipe.com/wp-content/uploads/2023/08/Oli-Bhel-2.jpg" 
             },
             {
-                name: "Cheese Blast Bhel",
-                marathiName: "चीझ ब्लास्ट भेळ",
-                type: "Fusion",
-                ingredients: "Classic bhel topped with loads of cheese, sweet corn, mayo, special masala, aani extra cheese!",
-                price: "₹90",
-                image: "https://www.shutterstock.com/image-photo/chinese-bhel-spicy-indochinese-recipe-600nw-1387600910.jpg"
+                name: "Sukhi Bhel",
+                marathiName: "सुखी भेळ",
+                type: "Classic",
+                ingredients: "Dry, crispy, and spicy bhel with a perfect crunch.",
+                price: "₹20",
+                image: "https://i0.wp.com/fitelo.co/wp-content/uploads/2022/02/ScreenShot_103.jpg" 
             },
             {
-                name: "Schezwan Tadka",
-                marathiName: "शेझवान तडका भेळ",
-                type: "Chinese Fusion",
-                ingredients: "Indo-Chinese style with noodles, schezwan sauce, veggies, wontons, special masala!",
+                name: "Dahi Bhel",
+                marathiName: "दही भेळ",
+                type: "Classic",
+                ingredients: "Tangy and creamy bhel topped with fresh curd and chutneys.",
+                price: "₹40",
+                image: "https://i.ytimg.com/vi/hVcve_Aodbg/hqdefault.jpg" 
+            },
+            {
+                name: "Schezwan Bhel",
+                marathiName: "शेझवान भेळ",
+                type: "Classic",
+                ingredients: "A fiery Indo-Chinese twist with Schezwan sauce.",
+                price: "₹40",
+                image: "https://thumbs.dreamstime.com/b/chinese-bhel-classic-indian-street-food-mumbai-consists-noodles-spring-onions-capsicum-cabbage-tomatoes-117641280.jpg" 
+            },
+            {
+                name: "Matki Bhel",
+                marathiName: "मटकी भेळ",
+                type: "Classic",
+                ingredients: "A protein-packed bhel loaded with sprouted matki and spices.",
+                price: "₹50",
+                image: "https://img-global.cpcdn.com/recipes/ccc4a4d8eefb8290/680x482cq70/matki-bhel-recipe-main-photo.jpg"
+            },
+            
+            {
+                name: "BYOB with Chips",
+                marathiName: "चिप्स सह BYOB",
+                type: "BYOB",
+                ingredients: "A cheesy and crispy bhel made with potato chips.",
+                price: "₹80",
+                image: "https://i.ytimg.com/vi/3Jmkl9b5SQk/maxresdefault.jpg",
+                isBYOB: true
+            },
+            {
+                name: "BYOB with Nachos",
+                marathiName: "नाचोस सह BYOB",
+                type: "BYOB",
+                ingredients: "A Mexican-style fusion bhel with crunchy nachos.",
+                price: "₹80",
+                image: "https://i.ytimg.com/vi/FuHSi9XKUpw/maxresdefault.jpg",
+                isBYOB: true
+            },
+            {
+                name: "BYOB with Kurkure",
+                marathiName: "कुरकुरे सह BYOB",
+                type: "BYOB",
+                ingredients: "A spicy and masaledar bhel with Kurkure.",
+                price: "₹80",
+                image: "https://i.ytimg.com/vi/qVubHZmteLk/maxresdefault.jpg",
+                isBYOB: true
+            },
+            {
+                name: "BYOB Grand Edition",
+                marathiName: "BYOB ग्रँड एडिशन",
+                type: "BYOB",
+                ingredients: "The ultimate mix of chips, nachos, and Kurkure in one bowl!",
                 price: "₹100",
-                image: "https://thumbs.dreamstime.com/b/chinese-bhel-black-bowl-isolated-white-backdrop-ndo-cuisine-street-food-dish-schezwan-sauce-indo-deep-fried-hakka-187058269.jpg"
-            },
-            {
-                name: "Dry Fruit Special",
-                marathiName: "ड्राय फ्रूट स्पेशल भेळ",
-                type: "Premium",
-                ingredients: "Premium bhel with cashews, almonds, golden raisins, dates, silver varq, gulkand!",
-                price: "₹150",
-                image: "https://www.munipendawala.com/cdn/shop/files/Dry-Fruit-Dalmoth_f28f7799-e83b-4783-8520-e2456a09eedd.jpg"
+                image: "https://www.shutterstock.com/image-vector/special-edition-vector-lettering-handwritten-260nw-1395590261.jpg",
+                isBYOB: true
             }
         ];
 
@@ -309,7 +360,7 @@
 
         function createCard(item) {
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = `card ${item.isBYOB ? 'byob' : ''}`;
             card.innerHTML = `
                 <div class="card-image">
                     <img src="${item.image}" alt="${item.name}" loading="lazy">
