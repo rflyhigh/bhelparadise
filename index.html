@@ -88,6 +88,7 @@
             cursor: grab;
             overflow: hidden;
             transform-origin: center;
+            user-select: none;
         }
 
         .card.exit-left {
@@ -226,8 +227,6 @@
             z-index: 20;
         }
 
-       
-
         @media (max-width: 400px) {
             .card-container {
                 width: 320px;
@@ -242,13 +241,13 @@
 <body>
     <div class="container">
         <div class="location-banner">
-        <i class="fas fa-map-marker-alt"></i>
-        Visit us at Oval Ground, ADYPU
-    </div>
-    <div class="header">
-        <h1>Bhel Paradise</h1>
-        <div class="marathi-punch">आमची भेळ, तुमची मजा!</div>
-    </div>
+            <i class="fas fa-map-marker-alt"></i>
+            Visit us at Oval Ground, ADYPU
+        </div>
+        <div class="header">
+            <h1>Bhel Paradise</h1>
+            <div class="marathi-punch">आमची भेळ, तुमची मजा!</div>
+        </div>
 
         <div class="card-container" id="cardContainer"></div>
 
@@ -265,7 +264,6 @@
             <i class="fas fa-hand-point-up"></i>
             Swipe kara, Maja kara!
         </div>
-
     </div>
 
     <script>
@@ -314,7 +312,7 @@
             card.className = 'card';
             card.innerHTML = `
                 <div class="card-image">
-                    <img src="${item.image}" alt="${item.name}">
+                    <img src="${item.image}" alt="${item.name}" loading="lazy">
                     <div class="tag">${item.type}</div>
                 </div>
                 <div class="card-content">
